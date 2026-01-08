@@ -8,11 +8,26 @@ function ME446_serial_ListVars()
 %
 %
 
-s = instrfind;
-if length(s) > 0
-    fclose(s);
+% Check for existing serial port objects
+existingPorts = serialportfind();
+
+% If any serial ports are found, clean them up
+if ~isempty(existingPorts)
+    fprintf('length %f\n',length(existingPorts));
+    for i = 1:length(existingPorts)
+        try
+            % Close and delete the serial port object
+            delete(existingPorts(i));
+        catch
+            % Handle errors if the object cannot be deleted
+            fprintf('Could not delete serial port: %s\n', existingPorts(i).Port);
+        end
+    end
 end
-clear s;
+
+% Clear the variables
+clear existingPorts;
+
 disp("!!Make Sure CCS is configured to Compile for FLASH for this function to work!!")
 filename = dir('../CPU_FLASH/*.map');
 
