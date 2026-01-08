@@ -62,9 +62,8 @@ hex_str = '2A0932'; % header
 hex_str = strcat(hex_str,memloc,hexsize);
 char_str = char(sscanf(hex_str,'%2X').');
 
-% s = serial('COM1');
-% set(s,'BaudRate',115200);
-s = serialport("COM1",115200);
+
+s = serialport("COM4",115200);
 s.InputBufferSize = 15000;
 fopen(s);
 fwrite(s,char_str);

@@ -55,7 +55,7 @@ end
 hex_str = '2A0B33'; % header
 hex_str = strcat(hex_str,memloc);
 char_str = char(sscanf(hex_str,'%2X').');
-s = serialport("COM1",115200);
+s = serialport("COM4",115200);
 s.InputBufferSize = 5000;
 fopen(s);
 fwrite(s,char_str);
